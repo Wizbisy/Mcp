@@ -17,11 +17,11 @@ A lightweight server for the MCP Madness challenge to track MON tokens on the Mo
    ```
    git clone https://github.com/wizbisy/Mcp.git
    cd Mcp
-Run the setup script:
+2. Run the setup script:
    ```
    bash setup.sh
    ```
-Start the server:
+3. Start the server:
    ```
    npm start 
    ```
@@ -49,7 +49,7 @@ Check my MON balance for address 0xYourAddress
    Simulate sending 50 MON from 0xYourAddress to 0xAnotherAddress
    ```
    ```
-   Set a low balance alert for address 0xYourAddress... at 10 MON
+   Set a low balance alert for address 0xYourAddress at 10 MON
    ```
    ```
    Give me a full portfolio overview for address 0xYourAddress with simulateTo 0xAnotherAddress and simulateAmount 50
