@@ -14,17 +14,17 @@ A lightweight server for the MCP Madness challenge to track MON tokens on the Mo
 ## ⚙️ Setup
 
 1. Clone this repository:
-   ```bash
+   ```
    git clone https://github.com/wizbisy/Mcp.git
    cd Mcp
 Run the setup script:
-```bash
+   ```
    bash setup.sh
-```
+   ```
 Start the server:
-```bash
-npm start 
-```
+   ```
+   npm start 
+   ```
 The server will run on:
 
 👉 http://localhost:3000
@@ -36,19 +36,24 @@ http://localhost:3000
 
 💬 Example Prompts
 Use these in Claude Desktop or Cursor IDE to interact with the server:
-
-"Check my MON balance for address 0xYourAddress..."
-
-"View my transaction history for address 0xYourAddress..."
-
-"Show my portfolio stats for address 0xYourAddress..."
-
-"Simulate sending 50 MON from 0xYourAddress... to 0xAnotherAddress..."
-
-"Set a low balance alert for address 0xYourAddress... at 10 MON"
-
-"Give me a full portfolio overview for address 0xYourAddress... with simulateTo 0xAnotherAddress... and simulateAmount 50"
-
+   ```
+Check my MON balance for address 0xYourAddress
+   ```
+   ```
+   View my transaction history for address 0xYourAddress
+   ```
+   ```
+   Show my portfolio stats for address 0xYourAddress
+   ```
+   ```
+   Simulate sending 50 MON from 0xYourAddress to 0xAnotherAddress
+   ```
+   ```
+   Set a low balance alert for address 0xYourAddress... at 10 MON
+   ```
+   ```
+   Give me a full portfolio overview for address 0xYourAddress with simulateTo 0xAnotherAddress and simulateAmount 50
+   ```
 📌 Notes
 RPC URL: The server uses https://testnet-rpc.monad.xyz. 
 
