@@ -58,7 +58,7 @@ Check my MON balance for address 0xYourAddress
    Give me a full portfolio overview for address 0xYourAddress with simulateTo 0xAnotherAddress and simulateAmount 50
    ```
 📌 Notes
-RPC URL: The server uses https://testnet-rpc.monad.xyz. 
+RPC URL: The server uses [my custom quick node rpc url](https://shy-polished-sound.monad-testnet.quiknode.pro/80816883909f333b81f1c58ff02c73e8bd5b70a1/). 
 
 Testnet MON: Get free MON from the Monad Faucet: https://testnet.monad.xyz
 
