@@ -1,6 +1,6 @@
-# Monad MCP Server
+# Monad Portfolio Tracker
 
-A lightweight server for the MCP Madness challenge to track MON tokens on the Monad Testnet. Built to work with Claude Desktop or Cursor IDE.
+This project is a server built for the MCP Madness challenge to help users track and manage their MON tokens on the Monad Testnet. It’s designed to work seamlessly with Claude Desktop or Cursor IDE, allowing users to interact with the Monad Testnet using simple, natural language prompts.
 
 ## 🚀 Features
 
@@ -14,25 +14,28 @@ A lightweight server for the MCP Madness challenge to track MON tokens on the Mo
 ## ⚙️ Setup
 
 1. Clone this repository:
+First, download the project files to your computer by running this command in your terminal:
    ```
    git clone https://github.com/wizbisy/Mcp.git
    cd Mcp
-2. Run the setup script:
+
+2. install dependencies:
+Run the setup script to install everything the project needs:
    ```
    bash setup.sh
    ```
+This will install Node.js packages like Express, Ethers.js, and TypeScript.
+
 3. Start the server:
+Launch the server with this command:
    ```
    npm start 
    ```
-The server will run on:
+You’ll see a message saying the server is running at http://localhost:3000.
 
-👉 http://localhost:3000
+4. Connect to Claude Desktop or Cursor IDE
+Open Claude Desktop or Cursor IDE on your computer. In the IDE settings, find the option to connect to an MCP server (this might be under "Tools" or "Agent Mode"). Enter the server address http://localhost:3000 to connect. If you're running the server on a remote machine or in a cloud environment like GitHub Codespaces, you may need to use a public URL instead—check your environment’s port settings to get the correct URL.
 
-Connect with Claude Desktop or Cursor IDE:
-
-Configure Claude or Cursor to send requests to:
-http://localhost:3000
 
 💬 Example Prompts
 Use these in Claude Desktop or Cursor IDE to interact with the server:
