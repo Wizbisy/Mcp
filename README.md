@@ -1,6 +1,5 @@
 # Monad MCP Server
 
-
 A lightweight server for the MCP Madness challenge to track MON tokens on the Monad Testnet. Built to work with Claude Desktop or Cursor IDE.
 
 ## 🚀 Features
@@ -19,12 +18,15 @@ A lightweight server for the MCP Madness challenge to track MON tokens on the Mo
    git clone https://github.com/wizbisy/Mcp.git
    cd Mcp
 Run the setup script:
-
-bash setup.sh
+```bash
+   bash setup.sh
+```
 Start the server:
-
-npm start
+```bash
+npm start 
+```
 The server will run on:
+
 👉 http://localhost:3000
 
 Connect with Claude Desktop or Cursor IDE:
@@ -48,6 +50,8 @@ Use these in Claude Desktop or Cursor IDE to interact with the server:
 "Give me a full portfolio overview for address 0xYourAddress... with simulateTo 0xAnotherAddress... and simulateAmount 50"
 
 📌 Notes
+RPC URL: The server uses https://testnet-rpc.monad.xyz. 
+
 Testnet MON: Get free MON from the Monad Faucet: https://testnet.monad.xyz
 
 Dependencies: Installed via setup.sh
