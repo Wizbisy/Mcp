@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 app.use(express.json());
 
-const monadRpcUrl = "https://testnet-rpc.monad.xyz";
+const monadRpcUrl = "https://shy-polished-sound.monad-testnet.quiknode.pro/80816883909f333b81f1c58ff02c73e8bd5b70a1/";
 const provider = new ethers.JsonRpcProvider(monadRpcUrl);
 
 // Store alerts
