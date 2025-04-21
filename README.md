@@ -16,8 +16,8 @@ A lightweight server for the MCP Madness challenge to track MON tokens on the Mo
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/wizbisy/MCP.git
-   cd MCP
+   git clone https://github.com/wizbisy/Mcp.git
+   cd Mcp
 Run the setup script:
 
 bash setup.sh
@@ -52,20 +52,6 @@ Testnet MON: Get free MON from the Monad Faucet: https://testnet.monad.xyz
 
 Dependencies: Installed via setup.sh
 (includes: Node.js, Express, Ethers.js, TypeScript)
-
-📝 Submission Info
-This project is submitted for MCP Madness Dev Community Mission #2, due April 30, 2025.
-It meets all core and bonus requirements:
-
-✅ Open source on GitHub
-
-✅ Interacts with the Monad Testnet
-
-✅ Claude/Cursor compatible via MCP protocol
-
-✅ Executes chained actions (full-portfolio-overview)
-
-✅ One-line install with setup.sh
 
 👨‍💻 Author
 Built with 💙 by wizbisy for the MCP Madness challenge.
