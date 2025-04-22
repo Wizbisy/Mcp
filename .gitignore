@@ -1,4 +1,6 @@
-node_modules/
-dist/
-*.log
+cat <<EOT > .gitignore
+node_modules
+dist
 .env
+*.log
+EOT

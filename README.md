@@ -22,7 +22,8 @@ First, download the project files to your computer by running this command in yo
 2. install dependencies:
 Run the setup script to install everything the project needs:
    ```
-   bash setup.sh
+   chmod +x setup.sh
+   ./setup.sh
    ```
 This will install Node.js packages like Express, Ethers.js, and TypeScript.
 
