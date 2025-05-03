@@ -1,23 +1,54 @@
 import express from "express";
 import { ethers } from "ethers";
 import { z } from "zod";
+import axios from "axios";
 
 const app = express();
 const port = 3000;
 app.use(express.json());
 
-const monadRpcUrl = "https://shy-polished-sound.monad-testnet.quiknode.pro/80816883909f333b81f1c58ff02c73e8bd5b70a1/";
-const provider = new ethers.JsonRpcProvider(monadRpcUrl);
+const monadRpcUrl = "https://shy-polished-sound.monad-testnet.quiknode.pro/80816883909f333b81f1c58ff02c73e8bd5b70a1/"; 
+const blockscoutApiUrl = "https://api.socialscan.io/monad-testnet"; 
 
-// Store alerts
+let provider: ethers.JsonRpcProvider;
+try {
+  provider = new ethers.JsonRpcProvider(monadRpcUrl);
+  provider.getBlockNumber().then(block => {
+    console.log(`Successfully connected to Monad Testnet. Latest block: ${block}`);
+  }).catch(err => {
+    console.error(`Failed to connect to Monad Testnet: ${err.message}`);
+    console.error("Please try an alternative RPC provider or check your network connection.");
+  });
+} catch (err) {
+  console.error(`Error initializing provider with Envio RPC: ${err.message}`);
+  process.exit(1); 
+}
+
 const balanceAlerts = new Map<string, { address: string; threshold: number }>();
 
-// Helper function
 function formatNumber(num: number): string {
   return num.toFixed(2);
 }
 
-// MCP Capabilities
+async function fetchTransactionHistory(address: string, limit: number = 5): Promise<string[]> {
+  try {
+    const response = await axios.get(`${blockscoutApiUrl}?module=account&action=txlist&address=${address}&sort=desc`);
+    const transactions = response.data.result || [];
+    const history: string[] = [];
+
+    for (const tx of transactions.slice(0, limit)) {
+      const valueMon = parseFloat(ethers.formatEther(tx.value));
+      const direction = tx.from.toLowerCase() === address.toLowerCase() ? "Sent" : "Received";
+      history.push(`${direction} ${formatNumber(valueMon)} MON ${tx.to ? `to/from ${tx.to}` : ""} (Hash: ${tx.hash.slice(0, 10)}...)`);
+    }
+
+    return history;
+  } catch (err) {
+    console.error(`Error fetching transaction history from Blockscout: ${err.message}`);
+    return [];
+  }
+}
+
 app.post("/mcp/capabilities", (_req, res) => {
   const capabilitiesList = [
     { name: "check-mon-balance", description: "Get your MON balance for an address" },
@@ -30,7 +61,6 @@ app.post("/mcp/capabilities", (_req, res) => {
   res.json({ capabilities: capabilitiesList });
 });
 
-// Core logic
 app.post("/mcp/execute", async (req, res) => {
   const { capability, params } = req.body;
 
@@ -50,11 +80,7 @@ app.post("/mcp/execute", async (req, res) => {
         const schema = z.object({ address: z.string().startsWith("0x").length(42) });
         const { address } = schema.parse(params);
 
-        const txCount = await provider.getTransactionCount(address);
-        const history = [];
-        for (let i = 0; i < Math.min(5, txCount); i++) {
-          history.push(`Tx ${i + 1}: SimulatedTxHash${i + 1} - ${formatNumber(0.1 * (i + 1))} MON`);
-        }
+        const history = await fetchTransactionHistory(address, 5);
         res.json({ result: history.length ? history.join("\n") : "No recent transactions found." });
         break;
       }
@@ -125,11 +151,8 @@ app.post("/mcp/execute", async (req, res) => {
         const balanceWei = await provider.getBalance(address);
         const balanceMon = parseFloat(ethers.formatEther(balanceWei));
         const txCount = await provider.getTransactionCount(address);
-
-        const history = [];
-        for (let i = 0; i < Math.min(3, txCount); i++) {
-          history.push(`Tx ${i + 1}: SimulatedTxHash${i + 1} - ${formatNumber(0.1 * (i + 1))} MON`);
-        }
+        
+        const history = await fetchTransactionHistory(address, 3);
 
         const amountWei = ethers.parseEther(simulateAmount.toString());
         const gasEstimate = await provider.estimateGas({ from: address, to: simulateTo, value: amountWei });
@@ -139,7 +162,7 @@ app.post("/mcp/execute", async (req, res) => {
         const overview = [
           `Balance: ${formatNumber(balanceMon)} MON`,
           `Recent Transactions (${history.length}):`,
-          history.length ? history.join("\n") : "No recent transactions.",
+          history.length ? history.join("\n") : "No recent transactions found.",
           `Simulated Sending ${simulateAmount} MON to ${simulateTo}:`,
           `- Estimated Gas: ${formatNumber(gasMon)} MON`,
           `- New Balance: ${formatNumber(newBalance)} MON`,
@@ -157,7 +180,6 @@ app.post("/mcp/execute", async (req, res) => {
   }
 });
 
-// Background Balance Checker
 setInterval(async () => {
   for (const [_, { address, threshold }] of balanceAlerts.entries()) {
     try {
@@ -170,9 +192,8 @@ setInterval(async () => {
       console.error(`Failed to check balance for ${address}: ${(e as Error).message}`);
     }
   }
-}, 60000); // Check every 60 seconds
+}, 60000); 
 
-// Start server
 app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port} - ready for MCP Madness! 🌟`);
+  console.log(`🚀 Server running at http://localhost:${port} - get your portfolio stats! 🌟`);
 });
